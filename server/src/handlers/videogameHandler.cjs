@@ -1,6 +1,10 @@
 require("dotenv").config();
 const { API_KEY } = process.env;
 const axios = require("axios");
+const {
+  getGame,
+  createGame,
+} = require("../controllers/videogameController.cjs");
 
 const getVideogameHandler = async (req, res) => {
   const url = "https://api.rawg.io/api/games";
@@ -53,8 +57,25 @@ const nameVideogameHandler = async (req, res) => {
   }
 };
 
-const postVideogameHandler = (req, res) => {
-  // i need to start coding whatever is supposed to be here
+const postVideogameHandler = async (req, res) => {
+  const { name, description, platforms, imageUrl, releaseDate, rating } =
+    req.body;
+
+  try {
+    const response = await createGame(
+      name,
+      description,
+      platforms,
+      imageUrl,
+      releaseDate,
+      rating,
+    );
+    res.status(200).json(response);
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ error: error.message });
+  }
 };
 
 module.exports = {
