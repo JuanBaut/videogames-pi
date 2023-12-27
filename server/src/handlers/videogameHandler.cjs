@@ -7,11 +7,12 @@ const {
 } = require("../controllers/videogameController.cjs");
 
 const getVideogameHandler = async (req, res) => {
-  const url = "https://api.rawg.io/api/games";
+  const gamesUrl = "https://api.rawg.io/api/games";
 
   try {
-    const response = await axios.get(url, { params: { key: API_KEY } });
+    const response = await axios.get(gamesUrl, { params: { key: API_KEY } });
     const videogames = response.data;
+    console.log(gamesUrl);
 
     res.status(200).json(videogames);
   } catch (error) {
