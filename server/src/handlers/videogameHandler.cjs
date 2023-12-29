@@ -7,14 +7,23 @@ const {
 } = require("../controllers/videogameController.cjs");
 
 const getVideogameHandler = async (req, res) => {
-  const gamesUrl = "https://api.rawg.io/api/games";
+  const gamesUrl = "https://api.rawg.io/api/games?page_size=100";
 
   try {
     const response = await axios.get(gamesUrl, { params: { key: API_KEY } });
-    const videogames = response.data;
-    console.log(gamesUrl);
+    const rawGames = response.data;
 
-    res.status(200).json(videogames);
+    const filteredGames = rawGames.results.map((game) => ({
+      id: game.id,
+      name: game.name,
+      image: game.background_image,
+      genres: game.genres.map((genre) => ({
+        id: genre.id,
+        name: genre.name,
+      })),
+    }));
+
+    res.status(200).json(filteredGames);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -46,21 +55,41 @@ const nameVideogameHandler = async (req, res) => {
       params: { key: API_KEY },
     });
 
-    const gameFound = response.data;
+    const resultsRaw = response.data;
 
-    if (!gameFound) {
+    const resultsFiltered = {
+      count: resultsRaw.count,
+      results: resultsRaw.results.map((game) => ({
+        id: game.id,
+        name: game.name,
+        image: game.background_image,
+        genres: game.genres.map((genre) => ({
+          id: genre.id,
+          name: genre.name,
+        })),
+      })),
+    };
+
+    if (resultsFiltered.count == 0) {
       return res.status(404).json({ error: "Game not found" });
     }
 
-    res.status(200).json(gameFound);
+    res.status(200).json(resultsFiltered);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
 const postVideogameHandler = async (req, res) => {
-  const { name, description, platforms, imageUrl, releaseDate, rating } =
-    req.body;
+  const {
+    name,
+    description,
+    platforms,
+    imageUrl,
+    releaseDate,
+    rating,
+    genresIds,
+  } = req.body;
 
   try {
     const response = await createGame(
@@ -70,6 +99,7 @@ const postVideogameHandler = async (req, res) => {
       imageUrl,
       releaseDate,
       rating,
+      genresIds,
     );
     res.status(200).json(response);
     console.log(response);
