@@ -1,7 +1,12 @@
 const { Games, Genres } = require("../db.cjs");
 
-const getGame = async () => {
-  return await Games.findAll();
+const games = async () => {
+  try {
+    const result = await Games.findAll({ include: [Genres] });
+    return result;
+  } catch (error) {
+    throw error;
+  }
 };
 
 const createGame = async (
@@ -34,4 +39,4 @@ const createGame = async (
   return game;
 };
 
-module.exports = { createGame, getGame };
+module.exports = { createGame, games };

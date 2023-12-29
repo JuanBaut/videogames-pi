@@ -1,13 +1,15 @@
 const {
-  getGenresHandler,
   createGenresHandler,
   filteredGenresHanlder,
+  apiGenresHandler,
+  databaseGenresHandler,
 } = require("../handlers/genresHandler.cjs");
 
 const { Router } = require("express");
 const genresRouter = Router();
 
-genresRouter.get("/", getGenresHandler);
+genresRouter.get("/", apiGenresHandler);
+genresRouter.get("/database", databaseGenresHandler);
 genresRouter.get("/filter", filteredGenresHanlder);
 genresRouter.post("/create", createGenresHandler);
 

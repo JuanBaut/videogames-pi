@@ -1,12 +1,18 @@
 require("dotenv").config();
 const { API_KEY } = process.env;
 const axios = require("axios");
-const {
-  getGame,
-  createGame,
-} = require("../controllers/videogameController.cjs");
+const { createGame, games } = require("../controllers/videogameController.cjs");
 
-const getVideogameHandler = async (req, res) => {
+const databaseGamesHandler = async (req, res) => {
+  try {
+    databaseGames = await games();
+    res.status(200).json(databaseGames);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+const apiGamesHandler = async (req, res) => {
   const gamesUrl = "https://api.rawg.io/api/games?page_size=100";
 
   try {
@@ -110,7 +116,8 @@ const postVideogameHandler = async (req, res) => {
 };
 
 module.exports = {
-  getVideogameHandler,
+  databaseGamesHandler,
+  apiGamesHandler,
   idVideogameHandler,
   nameVideogameHandler,
   postVideogameHandler,

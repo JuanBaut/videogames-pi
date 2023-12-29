@@ -3,8 +3,18 @@ const { API_KEY } = process.env;
 const axios = require("axios");
 const { createGenres } = require("../controllers/genresController.cjs");
 const { filteredGenres } = require("../utils/filter.cjs");
+const { genres } = require("../controllers/genresController.cjs");
 
-const getGenresHandler = async (req, res) => {
+const databaseGenresHandler = async (req, res) => {
+  try {
+    const databaseGenres = await genres();
+    res.status(200).json(databaseGenres);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+const apiGenresHandler = async (req, res) => {
   const url = "https://api.rawg.io/api/genres";
 
   try {
@@ -34,7 +44,8 @@ const createGenresHandler = async (req, res) => {
 };
 
 module.exports = {
-  getGenresHandler,
+  databaseGenresHandler,
+  apiGenresHandler,
   createGenresHandler,
   filteredGenresHanlder,
 };
