@@ -1,8 +1,25 @@
 const { Games, Genres } = require("../db.cjs");
+const { Op } = require("sequelize");
 
 const games = async () => {
   try {
     const result = await Games.findAll({ include: [Genres] });
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const searchGame = async (name) => {
+  try {
+    const result = await Games.findAll({
+      where: {
+        name: {
+          [Op.like]: "%" + name + "%",
+        },
+      },
+      include: [Genres],
+    });
     return result;
   } catch (error) {
     throw error;
@@ -39,4 +56,4 @@ const createGame = async (
   return game;
 };
 
-module.exports = { createGame, games };
+module.exports = { searchGame, createGame, games };

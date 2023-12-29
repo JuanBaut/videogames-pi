@@ -1,7 +1,11 @@
 require("dotenv").config();
 const { API_KEY } = process.env;
 const axios = require("axios");
-const { createGame, games } = require("../controllers/videogameController.cjs");
+const {
+  createGame,
+  games,
+  searchGame,
+} = require("../controllers/videogameController.cjs");
 
 const databaseGamesHandler = async (req, res) => {
   try {
@@ -36,6 +40,33 @@ const apiGamesHandler = async (req, res) => {
   }
 };
 
+const mergedGamesHandler = async (req, res) => {
+  const gamesUrl = "https://api.rawg.io/api/games?page_size=100";
+
+  try {
+    const response = await axios.get(gamesUrl, { params: { key: API_KEY } });
+    const rawGames = response.data;
+
+    const filteredGames = rawGames.results.map((game) => ({
+      id: game.id,
+      name: game.name,
+      image: game.background_image,
+      genres: game.genres.map((genre) => ({
+        id: genre.id,
+        name: genre.name,
+      })),
+    }));
+
+    databaseGames = await games();
+
+    const mergedGames = [...databaseGames, ...filteredGames];
+
+    res.status(200).json(mergedGames);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 const idVideogameHandler = async (req, res) => {
   const id = req.params.id;
   const url = "https://api.rawg.io/api/games/" + id;
@@ -57,6 +88,10 @@ const nameVideogameHandler = async (req, res) => {
   const url = `https://api.rawg.io/api/games?search=${name}`;
 
   try {
+    // Search in the database
+    const databaseResults = await searchGame(name);
+
+    // Search in the API
     const response = await axios.get(url, {
       params: { key: API_KEY },
     });
@@ -64,24 +99,28 @@ const nameVideogameHandler = async (req, res) => {
     const resultsRaw = response.data;
 
     const resultsFiltered = {
-      count: resultsRaw.count,
-      results: resultsRaw.results.map((game) => ({
-        id: game.id,
-        name: game.name,
-        image: game.background_image,
-        genres: game.genres.map((genre) => ({
-          id: genre.id,
-          name: genre.name,
+      count: resultsRaw.count + databaseResults.length,
+      results: [
+        ...databaseResults,
+        ...resultsRaw.results.map((game) => ({
+          id: game.id,
+          name: game.name,
+          image: game.background_image,
+          genres: game.genres.map((genre) => ({
+            id: genre.id,
+            name: genre.name,
+          })),
         })),
-      })),
+      ],
     };
 
     if (resultsFiltered.count == 0) {
       return res.status(404).json({ error: "Game not found" });
     }
 
-    res.status(200).json(resultsFiltered);
+    res.status(200).json(databaseResults);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -118,6 +157,7 @@ const postVideogameHandler = async (req, res) => {
 module.exports = {
   databaseGamesHandler,
   apiGamesHandler,
+  mergedGamesHandler,
   idVideogameHandler,
   nameVideogameHandler,
   postVideogameHandler,
