@@ -1,0 +1,14 @@
+.activity {
+  text-align: left;
+
+  border: solid;
+  border-color: #abea90;
+  border-width: 4px;
+  border-radius: 4px;
+
+  padding: 8px;
+  margin: 16px;
+
+  width: 250px;
+  height: 110px;
+}

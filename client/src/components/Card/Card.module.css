@@ -1,0 +1,35 @@
+.card {
+  text-align: left;
+
+  border: solid;
+  border-color: #abea90;
+  border-width: 4px;
+  border-radius: 4px;
+
+  padding: 8px;
+  margin: 16px;
+
+  width: 250px;
+  height: 230px;
+
+  transition: 0.25s ease-out;
+  transition: 0.25s ease-in;
+
+  cursor: pointer;
+}
+
+.card:hover {
+  background-color: #ccf5d4;
+}
+
+.image {
+  width: 230px;
+  height: 150px;
+
+  margin: 0 5px;
+
+  border: solid;
+  border-color: #ccf5d4;
+  border-width: 5px;
+  border-radius: 4px;
+}
