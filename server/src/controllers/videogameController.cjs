@@ -26,6 +26,15 @@ const searchGame = async (name) => {
   }
 };
 
+const searchGameId = async (id) => {
+  try {
+    const result = await Games.findByPk(id);
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const createGame = async (
   name,
   description,
@@ -56,4 +65,4 @@ const createGame = async (
   return game;
 };
 
-module.exports = { searchGame, createGame, games };
+module.exports = { searchGameId, searchGame, createGame, games };
