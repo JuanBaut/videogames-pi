@@ -28,8 +28,8 @@ function Home() {
   return (
     <div className={style.container}>
       <Search /* handleChange={handleChange} handleSubmit={handleSubmit} */ />
-      <Pages />
       <Rack videogames={visibleVideogames} />
+      <Pages />
     </div>
   );
 }

@@ -32,7 +32,7 @@ function Pages() {
   };
   return (
     <div className={style.pages}>
-      <button onClick={previousPage}>Previous</button>
+      <button onClick={previousPage}>Prev</button>
       <div className={style.counter}>
         <h5>{currentPage}</h5>
       </div>

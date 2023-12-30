@@ -6,12 +6,17 @@ function Search() {
 
   return (
     <div className={style.container}>
-      <form>
-        <input placeholder="Buscar videojuego"></input>
-        <button>Buscar</button>
-      </form>
-      <button onClick={() => navigate(`/`)}>Landing page</button>
-      <button onClick={() => navigate(`/create`)}>Crear videojuego</button>
+      <div className={style.left}>
+        <form>
+          <input placeholder="Buscar videojuego"></input>
+          <button>Buscar</button>
+        </form>
+      </div>
+
+      <div className={style.right}>
+        <button onClick={() => navigate(`/`)}>Landing</button>
+        <button onClick={() => navigate(`/create`)}>Create</button>
+      </div>
     </div>
   );
 }
