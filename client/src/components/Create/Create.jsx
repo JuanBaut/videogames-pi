@@ -1,60 +1,24 @@
-import style from './Create.module.css';
-
-import ActivityGrid from '../ActivityGrid/ActivityGrid';
-
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { getActivities } from '../../redux/actions';
+import { useNavigate } from "react-router-dom";
+import style from "./Create.module.css";
 
 function Create() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const activities = useSelector((state) => state.activities);
-
-  useEffect(() => {
-    dispatch(getActivities());
-  }, [dispatch]);
-
-  const handleSubmit = () => {
-  };
 
   return (
-    <div>
+    <>
       <div className={style.container}>
-        <h2>Touristic Activities</h2>
-        <form>
-          <input
-            className={style.input}
-            placeholder='Name...'
-          ></input>
-          <input
-            className={style.input}
-            placeholder='Difficulty...'
-          ></input>
-          <input
-            className={style.input}
-            placeholder='Duration...'
-          ></input>
-          <input
-            className={style.input}
-            placeholder='Season...'
-          ></input>
-          <input
-            className={style.input}
-            placeholder='Country...'
-          ></input>
-          <button className={style.button}>Create Activity</button>
+        <div className={style.bar}>
+          <h4>Crear videojuego</h4>
+          <button onClick={() => navigate(`/home`)}>Home page</button>
+        </div>
+        <form className={style.form}>
+          <input className={style.input} placeholder="Nombre"></input>
+          <input className={style.input} placeholder="Generos"></input>
+          <input className={style.input} placeholder="Descripcion"></input>
+          <button className={style.input}>Crear!</button>
         </form>
-        <button
-          className={style.button}
-          onClick={() => navigate(`/home`)}
-        >
-          Home
-        </button>
       </div>
-      <ActivityGrid activities={activities} />
-    </div>
+    </>
   );
 }
 

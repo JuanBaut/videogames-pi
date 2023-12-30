@@ -1,12 +1,16 @@
+.counter {
+  border: 4px solid var(--primary);
+  border-radius: 4px;
+}
+
 .container {
+  border: 4px solid var(--accent);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   align-content: flex-start;
-
-  width: 1500px;
 
   margin: 24px auto 0 auto;
 }

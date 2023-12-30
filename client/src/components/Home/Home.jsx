@@ -1,42 +1,71 @@
-import style from './Home.module.css';
+import style from "./Home.module.css";
 
-import SearchBar from '../SearchBar/SearchBar';
-import CardGrid from '../CardGrid/CardGrid';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { getCountries } from '../../redux/actions';
+import Search from "../Search/Search";
+import Rack from "../Rack/Rack";
+import { getVideogames, setCurrentPage } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 function Home() {
   const dispatch = useDispatch();
-  const countries = useSelector((state) => state.countries);
+  const { videogames, currentPage, itemsPerPage, totalVideogames } =
+    useSelector((state) => state.videogames);
 
-  const [filter, setFilter] = useState(countries);
-  const [searchCode, setSearchCode] = useState('');
+  const [filter, setFilter] = useState(videogames);
+  const [searchId, setSearchId] = useState("");
 
   const handleChange = (e) => {
     e.preventDefault();
-    setSearchCode(e.target.value);
+    setSearchId(e.target.value);
   };
 
   const handleSubmit = () => {
-    const filtered = countries.filter((country) =>
-      country.code.includes(searchCode)
+    const filtered = videogames.filter((videogame) =>
+      videogame.id.includes(searchId),
     );
     setFilter(filtered);
   };
 
   useEffect(() => {
-    dispatch(getCountries());
+    dispatch(getVideogames());
     //    return () => {clearDetail();};
   }, [dispatch]);
 
+  const visibleVideogames = videogames
+    ? videogames.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage,
+      )
+    : [];
+
+  const pageCount = Math.ceil(totalVideogames / itemsPerPage);
+
+  const isFirstPage = currentPage === 1;
+  const isLastPage = currentPage === pageCount;
+
+  const nextPage = () => {
+    if (!isLastPage) {
+      dispatch(setCurrentPage(currentPage + 1));
+    }
+  };
+
+  const previousPage = () => {
+    if (!isFirstPage) {
+      dispatch(setCurrentPage(currentPage - 1));
+    }
+  };
+
   return (
     <div className={style.container}>
-      <SearchBar
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-      />
-      <CardGrid countries={countries} />
+      <Search handleChange={handleChange} handleSubmit={handleSubmit} />
+      <Rack videogames={videogames} />
+      <div className={style.pages}>
+        <button onClick={previousPage}>Previous</button>
+        <div className={style.counter}>
+          <h5>{pageCount}</h5>
+        </div>
+        <button onClick={nextPage}>Next</button>
+      </div>
     </div>
   );
 }

@@ -1,25 +1,15 @@
-/* eslint-disable react/prop-types */
-import style from './Card.module.css';
+import style from "./Card.module.css";
+import { useNavigate } from "react-router-dom";
 
-import { useNavigate } from 'react-router-dom';
-
-function Card({ country }) {
+function Card({ videogame }) {
   const navigate = useNavigate();
 
-  const { code, name, flag, region } = country;
+  const { id, name, imageUrl } = videogame;
 
   return (
-    <div
-      className={style.card}
-      onClick={() => navigate(`/detail/${code}`)}
-    >
-      <img
-        src={flag}
-        alt='flag.png'
-        className={style.image}
-      />
-      <div>Name:{name}</div>
-      <div>Region:{region}</div>
+    <div className={style.card} onClick={() => navigate(`/detail/${id}`)}>
+      <img src={imageUrl} alt="image.png" className={style.image} />
+      <p className={style.text}>{name}</p>
     </div>
   );
 }

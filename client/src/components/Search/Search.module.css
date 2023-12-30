@@ -1,0 +1,10 @@
+.container {
+  border: 4px solid var(--accent);
+  padding: 24px;
+
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  justify-content: center;
+}

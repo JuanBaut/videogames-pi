@@ -1,35 +1,41 @@
-import axios from 'axios';
+import axios from "axios";
 
-export const GET_COUNTRIES = 'GET_COUNTRIES';
-export const GET_COUNTRIES_CODE = 'GET_COUNTRIES_CODE';
-export const GET_ACTIVITIES = 'GET_ACTIVITIES';
+export const GET_VIDEOGAMES = "GET_VIDEOGAMES";
+export const GET_VIDEOGAMES_ID = "GET_VIDEOGAMES_ID";
+export const GET_GENRES = "GET_GENRES";
+export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 
-export function getCountries() {
+export function getVideogames() {
   return async function (dispatch) {
-    const response = await axios(`http://localhost:3001/country/`);
+    const response = await axios(`http://localhost:3001/videogames/`);
     return dispatch({
-      type: 'GET_COUNTRIES',
+      type: "GET_VIDEOGAMES",
       payload: response.data,
     });
   };
 }
 
-export function getCountriesCode(code) {
+export function getVideogamesId(id) {
   return async function (dispatch) {
-    const response = await axios(`http://localhost:3001/country/code/${code}`);
+    const response = await axios(`http://localhost:3001/videogames/id/${id}`);
     return dispatch({
-      type: 'GET_COUNTRIES_CODE',
+      type: "GET_VIDEOGAMES_ID",
       payload: response.data,
     });
   };
 }
 
-export function getActivities() {
+export function getGenres() {
   return async function (dispatch) {
-    const response = await axios(`http://localhost:3001/activity`);
+    const response = await axios(`http://localhost:3001/genres`);
     return dispatch({
-      type: 'GET_ACTIVITIES',
+      type: "GET_GENRES",
       payload: response.data,
     });
   };
 }
+
+export const setCurrentPage = (page) => ({
+  type: "SET_CURRENT_PAGE",
+  payload: page,
+});
