@@ -27,7 +27,7 @@ const apiGamesHandler = async (req, res) => {
     const filteredGames = rawGames.results.map((game) => ({
       id: game.id,
       name: game.name,
-      image: game.background_image,
+      imageUrl: game.background_image,
       genres: game.genres.map((genre) => ({
         id: genre.id,
         name: genre.name,
@@ -51,7 +51,7 @@ const mergedGamesHandler = async (req, res) => {
     const filteredGames = rawGames.results.map((game) => ({
       id: game.id,
       name: game.name,
-      image: game.background_image,
+      imageUrl: game.background_image,
       genres: game.genres.map((genre) => ({
         id: genre.id,
         name: genre.name,
@@ -62,7 +62,15 @@ const mergedGamesHandler = async (req, res) => {
 
     const mergedGames = [...databaseGames, ...filteredGames];
 
-    res.status(200).json(mergedGames);
+    const dbCount = databaseGames.length;
+    const apiCount = filteredGames.length;
+
+    res
+      .status(200)
+      .json({
+        count: { database: dbCount, api: apiCount, total: dbCount + apiCount },
+        mergedGames,
+      });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
@@ -117,7 +125,7 @@ const nameVideogameHandler = async (req, res) => {
         ...resultsRaw.results.map((game) => ({
           id: game.id,
           name: game.name,
-          image: game.background_image,
+          imageUrl: game.background_image,
           genres: game.genres.map((genre) => ({
             id: genre.id,
             name: genre.name,
