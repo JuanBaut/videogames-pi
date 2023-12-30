@@ -1,12 +1,14 @@
 import {
   GET_VIDEOGAMES,
   GET_VIDEOGAMES_ID,
+  GET_VIDEOGAMES_NAME,
   GET_GENRES,
   SET_CURRENT_PAGE,
 } from "./actions";
 
 let initialState = {
   videogames: [],
+  searchVideogames: [],
   videogame: [],
   genres: [],
   currentPage: 1,
@@ -27,6 +29,12 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         videogame: action.payload,
+      };
+
+    case GET_VIDEOGAMES_NAME:
+      return {
+        ...state,
+        searchVideogames: action.payload,
       };
 
     case GET_GENRES:

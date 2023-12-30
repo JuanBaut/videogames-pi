@@ -27,7 +27,7 @@ function Home() {
 
   return (
     <div className={style.container}>
-      <Search /* handleChange={handleChange} handleSubmit={handleSubmit} */ />
+      <Search />
       <Rack videogames={visibleVideogames} />
       <Pages />
     </div>

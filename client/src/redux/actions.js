@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const GET_VIDEOGAMES = "GET_VIDEOGAMES";
 export const GET_VIDEOGAMES_ID = "GET_VIDEOGAMES_ID";
+export const GET_VIDEOGAMES_NAME = "GET_VIDEOGAMES_NAME";
 export const GET_GENRES = "GET_GENRES";
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 
@@ -20,6 +21,18 @@ export function getVideogamesId(id) {
     const response = await axios(`http://localhost:3001/videogames/id/${id}`);
     return dispatch({
       type: "GET_VIDEOGAMES_ID",
+      payload: response.data,
+    });
+  };
+}
+
+export function getVideogamesName(name) {
+  return async function (dispatch) {
+    const response = await axios(
+      `http://localhost:3001/videogames/search/${name}`,
+    );
+    return dispatch({
+      type: "GET_VIDEOGAMES_NAME",
       payload: response.data,
     });
   };
