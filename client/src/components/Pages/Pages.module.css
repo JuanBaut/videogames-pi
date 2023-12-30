@@ -1,10 +1,7 @@
-.container {
+.pages {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  align-content: flex-start;
-
-  margin: 24px auto 0 auto;
 }
