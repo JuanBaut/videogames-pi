@@ -1,18 +1,16 @@
-const {
-  idVideogameHandler,
-  nameVideogameHandler,
-  postVideogameHandler,
-  databaseGamesHandler,
-  apiGamesHandler,
-  mergedGamesHandler,
-} = require("../handlers/videogameHandler.cjs");
+import mergedVideogameHandler from "../handlers/videogames/mergedVideogameHandler.cjs";
+import databaseGenresHandler from "../handlers/genres/genresHandler.cjs";
+import apiVideogameHandler from "../handlers/videogames/apiVideogameHandler.cjs";
+import idVideogameHandler from "../handlers/videogames/idVideogameHandler.cjs";
+import nameVideogameHandler from "../handlers/videogames/nameVideogameHandler.cjs";
+import postVideogameHandler from "../handlers/videogames/postVideogameHandler.cjs";
 
 const { Router } = require("express");
 const videogameRouter = Router();
 
-videogameRouter.get("/", mergedGamesHandler);
-videogameRouter.get("/database", databaseGamesHandler);
-videogameRouter.get("/api", apiGamesHandler);
+videogameRouter.get("/", mergedVideogameHandler);
+videogameRouter.get("/database", databaseGenresHandler);
+videogameRouter.get("/api", apiVideogameHandler);
 videogameRouter.get("/id/:id?", idVideogameHandler);
 videogameRouter.get("/search/:name?", nameVideogameHandler);
 videogameRouter.post("/create", postVideogameHandler);
