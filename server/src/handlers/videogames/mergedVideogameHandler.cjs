@@ -3,7 +3,7 @@ const { API_KEY } = process.env;
 const axios = require("axios");
 const { games } = require("../../controllers/videogameController.cjs");
 
-const mergedGamesHandler = async (req, res) => {
+const mergedVideogameHandler = async (req, res) => {
   const gamesUrl = "https://api.rawg.io/api/games?page_size=100";
 
   try {
@@ -36,4 +36,4 @@ const mergedGamesHandler = async (req, res) => {
   }
 };
 
-module.exports = mergedGamesHandler;
+module.exports = mergedVideogameHandler;

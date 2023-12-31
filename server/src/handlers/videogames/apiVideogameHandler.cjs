@@ -2,7 +2,7 @@ require("dotenv").config();
 const { API_KEY } = process.env;
 const axios = require("axios");
 
-const apiGamesHandler = async (req, res) => {
+const apiVideogameHandler = async (req, res) => {
   const gamesUrl = "https://api.rawg.io/api/games?page_size=100";
 
   try {
@@ -26,4 +26,4 @@ const apiGamesHandler = async (req, res) => {
   }
 };
 
-module.exports = apiGamesHandler;
+module.exports = apiVideogameHandler;
