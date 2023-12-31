@@ -65,12 +65,10 @@ const mergedGamesHandler = async (req, res) => {
     const dbCount = databaseGames.length;
     const apiCount = filteredGames.length;
 
-    res
-      .status(200)
-      .json({
-        count: { database: dbCount, api: apiCount, total: dbCount + apiCount },
-        mergedGames,
-      });
+    res.status(200).json({
+      count: { database: dbCount, api: apiCount, total: dbCount + apiCount },
+      mergedGames,
+    });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
@@ -134,11 +132,7 @@ const nameVideogameHandler = async (req, res) => {
       ],
     };
 
-    if (resultsFiltered.count == 0) {
-      return res.status(404).json({ error: "Game not found" });
-    }
-
-    res.status(200).json(databaseResults);
+    res.status(200).json(resultsFiltered);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
