@@ -19,18 +19,17 @@ const nameVideogameHandler = async (req, res) => {
     const apiCount = apiResults.count;
     const dbCount = databaseResults.length;
 
-    const mergedData = {
-      ...databaseResults,
-      ...apiResults.results.map((game) => ({
-        id: game.id,
-        name: game.name,
-        imageUrl: game.background_image,
-        genres: game.genres.map((genre) => ({
-          id: genre.id,
-          name: genre.name,
-        })),
+    const filterApiResults = apiResults.results.map((game) => ({
+      id: game.id,
+      name: game.name,
+      imageUrl: game.background_image,
+      genres: game.genres.map((genre) => ({
+        id: genre.id,
+        name: genre.name,
       })),
-    };
+    }));
+
+    const mergedData = [...databaseResults, ...filterApiResults];
 
     res.status(200).json({
       count: { database: dbCount, api: apiCount, total: dbCount + apiCount },
