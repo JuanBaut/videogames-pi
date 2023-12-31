@@ -1,7 +1,7 @@
 require("dotenv").config();
 const { createGame } = require("../controllers/videogameController.cjs");
 
-export default postVideogameHandler = async (req, res) => {
+const postVideogameHandler = async (req, res) => {
   const {
     name,
     description,
@@ -29,3 +29,5 @@ export default postVideogameHandler = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+module.exports = postVideogameHandler;

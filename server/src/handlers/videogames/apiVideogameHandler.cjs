@@ -2,7 +2,7 @@ require("dotenv").config();
 const { API_KEY } = process.env;
 const axios = require("axios");
 
-export default apiGamesHandler = async (req, res) => {
+const apiGamesHandler = async (req, res) => {
   const gamesUrl = "https://api.rawg.io/api/games?page_size=100";
 
   try {
@@ -25,3 +25,5 @@ export default apiGamesHandler = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+module.exports = apiGamesHandler;

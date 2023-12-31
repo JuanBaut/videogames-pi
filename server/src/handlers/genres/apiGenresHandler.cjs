@@ -2,7 +2,7 @@ require("dotenv").config();
 const { API_KEY } = process.env;
 const axios = require("axios");
 
-export default apiGenresHandle = async (req, res) => {
+const apiGenresHandle = async (req, res) => {
   const url = "https://api.rawg.io/api/genres";
 
   try {
@@ -15,3 +15,5 @@ export default apiGenresHandle = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+module.exports = apiGenresHandle;

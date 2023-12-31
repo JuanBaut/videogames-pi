@@ -3,7 +3,7 @@ const { API_KEY } = process.env;
 const axios = require("axios");
 const { searchGameId } = require("../controllers/videogameController.cjs");
 
-export default idVideogameHandler = async (req, res) => {
+const idVideogameHandler = async (req, res) => {
   const id = req.params.id;
   console.log(id);
   const url = "https://api.rawg.io/api/games/" + id;
@@ -31,3 +31,5 @@ export default idVideogameHandler = async (req, res) => {
     res.status(500).send(error);
   }
 };
+
+module.exports = idVideogameHandler;

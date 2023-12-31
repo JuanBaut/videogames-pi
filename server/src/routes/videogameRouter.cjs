@@ -5,6 +5,9 @@ import idVideogameHandler from "../handlers/videogames/idVideogameHandler.cjs";
 import nameVideogameHandler from "../handlers/videogames/nameVideogameHandler.cjs";
 import postVideogameHandler from "../handlers/videogames/postVideogameHandler.cjs";
 
+const mergedVideogameHandler = require("../handlers/videogames/mergedVideogameHandler.cjs")
+const  = require("../handlers/videogames/mergedVideogameHandler.cjs")
+
 const { Router } = require("express");
 const videogameRouter = Router();
 

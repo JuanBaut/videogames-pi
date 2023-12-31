@@ -3,7 +3,7 @@ const { API_KEY } = process.env;
 const axios = require("axios");
 const { games } = require("../../controllers/videogameController.cjs");
 
-export default mergedGamesHandler = async (req, res) => {
+const mergedGamesHandler = async (req, res) => {
   const gamesUrl = "https://api.rawg.io/api/games?page_size=100";
 
   try {
@@ -35,3 +35,5 @@ export default mergedGamesHandler = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+module.exports = mergedGamesHandler;

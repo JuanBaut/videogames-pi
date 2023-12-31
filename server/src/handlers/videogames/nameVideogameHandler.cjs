@@ -3,7 +3,7 @@ const { API_KEY } = process.env;
 const axios = require("axios");
 const { searchGame } = require("../controllers/videogameController.cjs");
 
-export default nameVideogameHandler = async (req, res) => {
+const nameVideogameHandler = async (req, res) => {
   const name = req.params.name;
   const url = `https://api.rawg.io/api/games?search=${name}`;
 
@@ -41,3 +41,5 @@ export default nameVideogameHandler = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+module.exports = nameVideogameHandler;

@@ -1,6 +1,6 @@
 const { games } = require("../../controllers/videogameController.cjs");
 
-export default databaseGamesHandler = async (req, res) => {
+const dbVideogamesHandler = async (req, res) => {
   try {
     databaseGames = await games();
     res.status(200).json(databaseGames);
@@ -8,3 +8,5 @@ export default databaseGamesHandler = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+module.exports = dbVideogamesHandler;

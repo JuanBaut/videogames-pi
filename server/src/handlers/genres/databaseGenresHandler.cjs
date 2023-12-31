@@ -1,7 +1,7 @@
 require("dotenv").config();
 const { genres } = require("../controllers/genresController.cjs");
 
-export default databaseGenresHandler = async (req, res) => {
+const dbGenresHandler = async (req, res) => {
   try {
     const databaseGenres = await genres();
     res.status(200).json(databaseGenres);
@@ -9,3 +9,5 @@ export default databaseGenresHandler = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+module.exports = dbGenresHandler;
