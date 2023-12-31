@@ -1,7 +1,7 @@
 require("dotenv").config();
 const { API_KEY } = process.env;
 const axios = require("axios");
-const { searchGameId } = require("../controllers/videogameController.cjs");
+const { searchGameId } = require("../../controllers/videogameController.cjs");
 
 const idVideogameHandler = async (req, res) => {
   const id = req.params.id;

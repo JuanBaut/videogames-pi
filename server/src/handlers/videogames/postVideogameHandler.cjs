@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { createGame } = require("../controllers/videogameController.cjs");
+const { createGame } = require("../../controllers/videogameController.cjs");
 
 const postVideogameHandler = async (req, res) => {
   const {

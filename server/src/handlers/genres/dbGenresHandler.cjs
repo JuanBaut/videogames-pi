@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { genres } = require("../controllers/genresController.cjs");
+const { genres } = require("../../controllers/genresController.cjs");
 
 const dbGenresHandler = async (req, res) => {
   try {
