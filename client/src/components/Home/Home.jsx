@@ -3,32 +3,25 @@ import style from "./Home.module.css";
 import Cards from "../Cards/Cards";
 import Pages from "../Pages/Pages";
 import Search from "../Search/Search";
-import { getVideogames } from "../../redux/actions";
+import { getVideogames } from "../../redux/actions/getVideogames";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { selectVisibleVideogames } from "../../redux/selectors";
 
 function Home() {
   const dispatch = useDispatch();
-  const videogames = useSelector((state) => state.videogames);
-  const itemsPerPage = useSelector((state) => state.itemsPerPage);
-  const currentPage = useSelector((state) => state.currentPage);
 
   useEffect(() => {
     dispatch(getVideogames());
   }, [dispatch]);
 
-  const visibleVideogames = videogames
-    ? videogames.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage,
-      )
-    : [];
+  const visibleVideogames = useSelector(selectVisibleVideogames);
 
   return (
     <div className={style.container}>
-      <Search/>
-      <Cards videogames={visibleVideogames} />
+      <Search />
       <Pages />
+      <Cards videogames={visibleVideogames} />
     </div>
   );
 }

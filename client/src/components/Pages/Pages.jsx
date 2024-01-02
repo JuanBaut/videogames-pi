@@ -1,6 +1,6 @@
 import style from "./Pages.module.css";
 import { useState } from "react";
-import { setCurrentPage } from "../../redux/actions";
+import { setCurrentPage } from "../../redux/actions/setCurrentPage";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 

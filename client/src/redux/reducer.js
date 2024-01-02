@@ -1,10 +1,8 @@
-import {
-  SEARCH,
-  GET_VIDEOGAMES,
-  GET_VIDEOGAMES_ID,
-  GET_GENRES,
-  SET_CURRENT_PAGE,
-} from "./actions";
+import { GET_DETAIL } from "./actions/getDetail";
+import { GET_GENRES } from "./actions/getGenres";
+import { GET_VIDEOGAMES } from "./actions/getVideogames";
+import { SEARCH } from "./actions/onSearch";
+import { SET_CURRENT_PAGE } from "./actions/setCurrentPage";
 
 let initialState = {
   videogames: [],
@@ -32,7 +30,7 @@ function reducer(state = initialState, action) {
         totalVideogames: action.payload.count.total,
       };
 
-    case GET_VIDEOGAMES_ID:
+    case GET_DETAIL:
       return {
         ...state,
         videogame: action.payload,
