@@ -3,13 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { onSearch } from "../../redux/actions/onSearch";
+import { setCurrentPage } from "../../redux/actions/setCurrentPage";
+import { getVideogames } from "../../redux/actions/getVideogames";
 
 function Search() {
+  const totalVideogames = useSelector((state) => state.totalVideogames);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [query, setQuery] = useState("");
 
-  const totalVideogames = useSelector((state) => state.totalVideogames);
+  const [query, setQuery] = useState("");
 
   const handleChange = (event) => {
     setQuery(event.target.value);
@@ -21,6 +23,7 @@ function Search() {
       setQuery(event.target.value);
       dispatch(onSearch(query));
       setQuery("");
+      dispatch(setCurrentPage(1));
     }
   };
 
@@ -29,10 +32,12 @@ function Search() {
     setQuery(event.target.value);
     dispatch(onSearch(query));
     setQuery("");
+    dispatch(setCurrentPage(1));
   };
 
   const handleReset = (event) => {
     event.preventDefault();
+    dispatch(getVideogames());
   };
 
   return (
