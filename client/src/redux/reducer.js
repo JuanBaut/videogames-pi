@@ -1,15 +1,15 @@
 import {
+  SEARCH,
   GET_VIDEOGAMES,
   GET_VIDEOGAMES_ID,
-  GET_VIDEOGAMES_NAME,
   GET_GENRES,
   SET_CURRENT_PAGE,
 } from "./actions";
 
 let initialState = {
   videogames: [],
-  searchVideogames: [],
-  videogame: [],
+  search: [],
+  detail: [],
   genres: [],
   currentPage: 1,
   itemsPerPage: 12,
@@ -18,6 +18,13 @@ let initialState = {
 
 function reducer(state = initialState, action) {
   switch (action.type) {
+    case SEARCH:
+      return {
+        ...state,
+        videogames: action.payload.mergedGames,
+        totalVideogames: action.payload.count.total,
+      };
+
     case GET_VIDEOGAMES:
       return {
         ...state,
@@ -29,12 +36,6 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         videogame: action.payload,
-      };
-
-    case GET_VIDEOGAMES_NAME:
-      return {
-        ...state,
-        searchVideogames: action.payload,
       };
 
     case GET_GENRES:

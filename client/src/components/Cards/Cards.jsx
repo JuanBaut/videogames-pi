@@ -1,7 +1,7 @@
 import Card from "../Card/Card";
-import style from "./Rack.module.css";
+import style from "./Cards.module.css";
 
-function Rack({ videogames }) {
+function Cards({ videogames }) {
   const data = videogames;
   return (
     <div className={style.container}>
@@ -12,4 +12,4 @@ function Rack({ videogames }) {
   );
 }
 
-export default Rack;
+export default Cards;
