@@ -29,11 +29,11 @@ const nameVideogameHandler = async (req, res) => {
       })),
     }));
 
-    const mergedData = [...databaseResults, ...filterApiResults];
+    const mergedGames = [...databaseResults, ...filterApiResults];
 
     res.status(200).json({
       count: { database: dbCount, api: apiCount, total: dbCount + apiCount },
-      mergedData,
+      mergedGames,
     });
   } catch (error) {
     console.error(error);
