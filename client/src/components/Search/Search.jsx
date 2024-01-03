@@ -6,9 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { onSearch } from "../../redux/actions/onSearch";
 import { setCurrentPage } from "../../redux/actions/setCurrentPage";
 import { getVideogames } from "../../redux/actions/getVideogames";
+import { getGenres } from "../../redux/actions/getGenres";
+import Filter from "../Filter/Filter";
 
 export default function Search() {
   const totalVideogames = useSelector((state) => state.totalVideogames);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -42,6 +45,11 @@ export default function Search() {
     dispatch(getVideogames());
   };
 
+  const handlePortal = () => {
+    setIsOpen(true);
+    dispatch(getGenres());
+  };
+
   return (
     <div className={style.container}>
       <div className={style.left}>
@@ -50,32 +58,23 @@ export default function Search() {
             value={query}
             onKeyDown={handleKeyDown}
             onChange={handleChange}
+            placeholder="Search videogames..."
           />
-          <button type="submit">Buscar</button>
+          <button type="submit">Search</button>
         </form>
         <button onClick={handleReset}>Reset</button>
-        <h6>{totalVideogames}</h6>
+        <h6>Total videogames: {totalVideogames}</h6>
       </div>
-
       <div className={style.right}>
-        <button>Order</button>
-        <button onClick={() => setIsOpen(true)}>Filter</button>
-        <button onClick={() => navigate(`/`)}>Landing</button>
+        <button>Sort</button>
+        <button onClick={handlePortal}>Filter</button>
         <button onClick={() => navigate(`/create`)}>Create</button>
+        <button onClick={() => navigate(`/`)}>Landing</button>
       </div>
-
-      {isOpen
-        ? createPortal(
-            <div className={style.overlay}>
-              <div className={style.select}>
-                <button onClick={() => setIsOpen(false)}>
-                  Close Filter Select
-                </button>
-              </div>
-            </div>,
-            document.body,
-          )
-        : null}
+      {createPortal(
+        <Filter open={isOpen} onClose={() => setIsOpen(false)} />,
+        document.body,
+      )}
     </div>
   );
 }

@@ -7,12 +7,14 @@ import { getVideogames } from "../../redux/actions/getVideogames";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { selectVisibleVideogames } from "../../redux/selectors";
+import { clearDetail } from "../../redux/actions/clearDetail";
 
 export default function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getVideogames());
+    dispatch(clearDetail());
   }, [dispatch]);
 
   const visibleVideogames = useSelector(selectVisibleVideogames);

@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: row;
+
+  padding: 48px 64px 0 64px;
+}
+
+.columns {
+  display: flex;
+  flex-direction: row;
+  width: 400px;
+}
+
+.image {
+  width: 600px;
+  height: 338px;
+  border: solid;
+  border-color: var(--primary);
+  border-width: 5px;
+  border-radius: 4px;
+}
