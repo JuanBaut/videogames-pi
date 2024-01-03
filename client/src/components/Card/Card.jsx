@@ -1,7 +1,7 @@
 import style from "./Card.module.css";
 import { useNavigate } from "react-router-dom";
 
-function Card({ videogame }) {
+export default function Card({ videogame }) {
   const navigate = useNavigate();
 
   const { id, name, imageUrl } = videogame;
@@ -13,5 +13,3 @@ function Card({ videogame }) {
     </div>
   );
 }
-
-export default Card;

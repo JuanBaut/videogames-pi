@@ -1,7 +1,7 @@
 import Card from "../Card/Card";
 import style from "./Cards.module.css";
 
-function Cards({ videogames }) {
+export default function Cards({ videogames }) {
   const data = videogames;
   return (
     <div className={style.container}>
@@ -11,5 +11,3 @@ function Cards({ videogames }) {
     </div>
   );
 }
-
-export default Cards;

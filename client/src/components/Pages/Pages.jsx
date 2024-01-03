@@ -4,7 +4,7 @@ import { setCurrentPage } from "../../redux/actions/setCurrentPage";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
-function Pages() {
+export default function Pages() {
   const dispatch = useDispatch();
   const itemsPerPage = useSelector((state) => state.itemsPerPage);
   const currentPage = useSelector((state) => state.currentPage);
@@ -40,5 +40,3 @@ function Pages() {
     </div>
   );
 }
-
-export default Pages;

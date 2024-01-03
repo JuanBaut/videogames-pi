@@ -1,4 +1,5 @@
 import style from "./Search.module.css";
+import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,12 +7,13 @@ import { onSearch } from "../../redux/actions/onSearch";
 import { setCurrentPage } from "../../redux/actions/setCurrentPage";
 import { getVideogames } from "../../redux/actions/getVideogames";
 
-function Search() {
+export default function Search() {
   const totalVideogames = useSelector((state) => state.totalVideogames);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [query, setQuery] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleChange = (event) => {
     setQuery(event.target.value);
@@ -56,11 +58,24 @@ function Search() {
       </div>
 
       <div className={style.right}>
+        <button>Order</button>
+        <button onClick={() => setIsOpen(true)}>Filter</button>
         <button onClick={() => navigate(`/`)}>Landing</button>
         <button onClick={() => navigate(`/create`)}>Create</button>
       </div>
+
+      {isOpen
+        ? createPortal(
+            <div className={style.overlay}>
+              <div className={style.select}>
+                <button onClick={() => setIsOpen(false)}>
+                  Close Filter Select
+                </button>
+              </div>
+            </div>,
+            document.body,
+          )
+        : null}
     </div>
   );
 }
-
-export default Search;

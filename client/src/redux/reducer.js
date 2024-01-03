@@ -1,3 +1,5 @@
+import { FILTER } from "./actions/filterVideogames";
+import { ORDER } from "./actions/orderVideogames";
 import { GET_DETAIL } from "./actions/getDetail";
 import { GET_GENRES } from "./actions/getGenres";
 import { GET_VIDEOGAMES } from "./actions/getVideogames";
@@ -6,7 +8,6 @@ import { SET_CURRENT_PAGE } from "./actions/setCurrentPage";
 
 let initialState = {
   videogames: [],
-  search: [],
   detail: [],
   genres: [],
   currentPage: 1,
@@ -16,6 +17,26 @@ let initialState = {
 
 function reducer(state = initialState, action) {
   switch (action.type) {
+    case FILTER:
+      let filteredVideogames = [...state.videogames];
+      filteredVideogames = filteredVideogames.filter(
+        (videogame) => videogame.genres === payload,
+      );
+      return {
+        ...state,
+        videogames: filteredVideogames,
+      };
+
+    case ORDER:
+      const sortedVideogames = [...state.videogames];
+      return {
+        ...state,
+        videogames:
+          payload === "A"
+            ? sortedVideogames.sort((a, b) => a.rating - b.rating)
+            : sortedVideogames.sort((a, b) => b.rating - a.rating),
+      };
+
     case SEARCH:
       return {
         ...state,

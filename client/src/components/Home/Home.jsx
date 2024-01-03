@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { selectVisibleVideogames } from "../../redux/selectors";
 
-function Home() {
+export default function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,5 +25,3 @@ function Home() {
     </div>
   );
 }
-
-export default Home;

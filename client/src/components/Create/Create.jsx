@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import style from "./Create.module.css";
 
-function Create() {
+export default function Create() {
   const navigate = useNavigate();
 
   return (
@@ -21,5 +21,3 @@ function Create() {
     </>
   );
 }
-
-export default Create;

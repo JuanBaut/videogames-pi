@@ -1,7 +1,5 @@
 // import style from "./Detail.module.css";
 
-function Detail() {
+export default function Detail() {
   return <div></div>;
 }
-
-export default Detail;

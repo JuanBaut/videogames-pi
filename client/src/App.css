@@ -5,11 +5,11 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  --text: #fafcff;
-  --background: #020c1d;
-  --primary: #85aef6;
-  --secondary: #940b12;
-  --accent: #cd3536;
+  --text: #eefbf7;
+  --background: #010403;
+  --primary: #2fb68e;
+  --secondary: #1d3972;
+  --accent: #2e2aa2;
 }
 
 * {

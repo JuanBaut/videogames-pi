@@ -1,13 +1,15 @@
 import style from "./Landing.module.css";
+import image from "../../assets/videogames.webp";
 
 import { useNavigate } from "react-router-dom";
 
-function Landing() {
+export default function Landing() {
   const navigate = useNavigate();
 
   return (
     <div className={style.container}>
       <div className={style.block}>
+        <img className={style.image} src={image} alt="console images" />
         <h3>App de videojuegos</h3>
         <hr></hr>
         <h5>Hecho por Juan Bautista</h5>
@@ -18,5 +20,3 @@ function Landing() {
     </div>
   );
 }
-
-export default Landing;
