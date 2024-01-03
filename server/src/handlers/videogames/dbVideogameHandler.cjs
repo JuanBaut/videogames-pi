@@ -5,6 +5,7 @@ const dbVideogamesHandler = async (req, res) => {
     databaseGames = await games();
     res.status(200).json(databaseGames);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };

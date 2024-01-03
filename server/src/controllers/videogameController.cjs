@@ -3,7 +3,19 @@ const { Op } = require("sequelize");
 
 const games = async () => {
   try {
-    const result = await Games.findAll({ include: [Genres] });
+    const dbGames = await Games.findAll({ include: [Genres] });
+
+    const result = dbGames.map((game) => ({
+      id: game.id,
+      name: game.name,
+      imageUrl: game.imageUrl,
+      genres: game.Genres.map((genre) => ({
+        id: genre.id,
+        name: genre.name,
+      })),
+      rating: game.rating,
+    }));
+
     return result;
   } catch (error) {
     throw error;

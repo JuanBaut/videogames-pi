@@ -8,9 +8,9 @@ const mergedVideogameHandler = async (req, res) => {
 
   try {
     const response = await axios.get(gamesUrl, { params: { key: API_KEY } });
-    const rawGames = response.data;
+    const apiGames = response.data;
 
-    const filteredGames = rawGames.results.map((game) => ({
+    const filteredApiGames = apiGames.results.map((game) => ({
       id: game.id,
       name: game.name,
       imageUrl: game.background_image,
@@ -18,20 +18,22 @@ const mergedVideogameHandler = async (req, res) => {
         id: genre.id,
         name: genre.name,
       })),
+      rating: game.rating,
     }));
 
     databaseGames = await games();
 
-    const mergedGames = [...databaseGames, ...filteredGames];
+    const mergedGames = [...databaseGames, ...filteredApiGames];
 
     const dbCount = databaseGames.length;
-    const apiCount = filteredGames.length;
+    const apiCount = filteredApiGames.length;
 
     res.status(200).json({
       count: { database: dbCount, api: apiCount, total: dbCount + apiCount },
       mergedGames,
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
