@@ -72,7 +72,7 @@ export default function Search() {
         <h6>Total videogames: {totalVideogames}</h6>
       </div>
       <div className={style.right}>
-        <button onClick={() => handlerOrder("A")}>Sort</button>
+        <button onClick={() => handlerOrder("B")}>Sort</button>
         <button onClick={handlePortal}>Filter</button>
         <button onClick={() => navigate(`/create`)}>Create</button>
         <button onClick={() => navigate(`/`)}>Landing</button>
