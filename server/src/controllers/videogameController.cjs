@@ -8,7 +8,7 @@ const games = async () => {
     const result = dbGames.map((game) => ({
       id: game.id,
       name: game.name,
-      imageUrl: game.imageUrl,
+      background_image: game.background_image,
       genres: game.Genres.map((genre) => ({
         id: genre.id,
         name: genre.name,

@@ -2,6 +2,7 @@ require("dotenv").config();
 const { API_KEY } = process.env;
 const axios = require("axios");
 const { searchGameId } = require("../../controllers/videogameController.cjs");
+const { validate } = require("uuid");
 
 const idVideogameHandler = async (req, res) => {
   const id = req.params.id;
@@ -11,17 +12,18 @@ const idVideogameHandler = async (req, res) => {
   try {
     let matchingGame;
 
-    try {
-      matchingGame = await searchGameId(id);
-    } catch (databaseError) {
-      console.error("Database error:", databaseError);
-    }
+    let isUuid = validate(id);
 
-    if (!matchingGame) {
+    if (isUuid) {
+      try {
+        matchingGame = await searchGameId(id);
+      } catch (databaseError) {
+        console.error("Database error:", databaseError);
+      }
+    } else {
       const response = await axios.get(url, {
         params: { key: API_KEY },
       });
-
       matchingGame = response.data;
     }
 
