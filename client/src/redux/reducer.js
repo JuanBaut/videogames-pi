@@ -1,56 +1,32 @@
-import { FILTER } from "./actions/filterVideogames";
-import { ORDER } from "./actions/orderVideogames";
-import { GET_DETAIL } from "./actions/getDetail";
-import { GET_GENRES } from "./actions/getGenres";
+import { CREATE_VIDEOGAME } from "./actions/createVideogame";
 import { GET_VIDEOGAMES } from "./actions/getVideogames";
 import { SEARCH } from "./actions/onSearch";
-import { SET_CURRENT_PAGE } from "./actions/setCurrentPage";
+import { ORDER } from "./actions/orderVideogames";
 import { CLEAR_DETAIL } from "./actions/clearDetail";
 import { CLEAR_FILTER } from "./actions/clearFilter";
+import { FILTER } from "./actions/filterVideogames";
+import { GET_DETAIL } from "./actions/getDetail";
+import { GET_GENRES } from "./actions/getGenres";
+import { SET_CURRENT_PAGE } from "./actions/setCurrentPage";
 
 let initialState = {
   videogames: [],
   videogamesCopy: [],
   detail: [],
   genres: [],
+  order: [],
   filter: [],
   currentPage: 1,
   itemsPerPage: 12,
   totalVideogames: 0,
 };
 
-function reducer(state = initialState, action) {
+export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case FILTER: {
-      let filteredVideogames = [...state.videogames];
-      filteredVideogames = filteredVideogames.filter((videogame) =>
-        videogame.genres.some((genre) => genre.id === action.payload),
-      );
-      return {
-        ...state,
-        filter: action.payload,
-        videogames: filteredVideogames,
-      };
-    }
-    case CLEAR_FILTER: {
-      return {
-        ...state,
-        videogames: state.videogamesCopy,
-      };
-    }
+    case CREATE_VIDEOGAME:
+      return [...state, action.payload];
 
-    case ORDER: {
-      const sortedVideogames = [...state.videogames];
-      return {
-        ...state,
-        videogames:
-          action.payload === "A"
-            ? sortedVideogames.sort((a, b) => a.rating - b.rating)
-            : sortedVideogames.sort((a, b) => b.rating - a.rating),
-      };
-    }
-
-    case SEARCH: {
+    case GET_VIDEOGAMES: {
       return {
         ...state,
         videogames: action.payload.mergedGames,
@@ -59,7 +35,7 @@ function reducer(state = initialState, action) {
       };
     }
 
-    case GET_VIDEOGAMES: {
+    case SEARCH: {
       return {
         ...state,
         videogames: action.payload.mergedGames,
@@ -92,9 +68,37 @@ function reducer(state = initialState, action) {
         currentPage: action.payload,
       };
 
+    case ORDER: {
+      const sortedVideogames = [...state.videogames];
+      return {
+        ...state,
+        videogames:
+          action.payload === "A"
+            ? sortedVideogames.sort((a, b) => a.rating - b.rating)
+            : sortedVideogames.sort((a, b) => b.rating - a.rating),
+      };
+    }
+
+    case FILTER: {
+      let filteredVideogames = [...state.videogames];
+      filteredVideogames = filteredVideogames.filter((videogame) =>
+        videogame.genres.some((genre) => genre.id === action.payload),
+      );
+      return {
+        ...state,
+        filter: action.payload,
+        videogames: filteredVideogames,
+      };
+    }
+
+    case CLEAR_FILTER: {
+      return {
+        ...state,
+        videogames: state.videogamesCopy,
+      };
+    }
+
     default:
       return state;
   }
 }
-
-export default reducer;

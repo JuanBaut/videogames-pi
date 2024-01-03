@@ -8,14 +8,17 @@ export default function Create() {
     <>
       <div className={style.container}>
         <div className={style.bar}>
-          <h4>Crear videojuego</h4>
+          <h4>Create videogame</h4>
           <button onClick={() => navigate(`/home`)}>Home page</button>
         </div>
         <form className={style.form}>
-          <input className={style.input} placeholder="Nombre"></input>
-          <input className={style.input} placeholder="Generos"></input>
-          <input className={style.input} placeholder="Descripcion"></input>
-          <button className={style.input}>Crear!</button>
+          <input className={style.input} placeholder="Name" />
+          <input className={style.input} placeholder="Description" />
+          <input className={style.input} placeholder="Platforms" />
+          <input className={style.input} placeholder="Image URL" />
+          <input className={style.input} placeholder="Release Date" />
+          <input className={style.input} placeholder="Genres" />
+          <button className={style.input}>Create!</button>
         </form>
       </div>
     </>
