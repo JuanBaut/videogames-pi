@@ -8,6 +8,7 @@ import { setCurrentPage } from "../../redux/actions/setCurrentPage";
 import { getVideogames } from "../../redux/actions/getVideogames";
 import { getGenres } from "../../redux/actions/getGenres";
 import Filter from "../Filter/Filter";
+import { orderVideogames } from "../../redux/actions/orderVideogames";
 
 export default function Search() {
   const totalVideogames = useSelector((state) => state.totalVideogames);
@@ -17,6 +18,7 @@ export default function Search() {
 
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  //const [isSorted, setIsSorted] = useState(false);
 
   const handleChange = (event) => {
     setQuery(event.target.value);
@@ -50,6 +52,10 @@ export default function Search() {
     dispatch(getGenres());
   };
 
+  const handlerOrder = (order) => {
+    dispatch(orderVideogames(order));
+  };
+
   return (
     <div className={style.container}>
       <div className={style.left}>
@@ -66,7 +72,7 @@ export default function Search() {
         <h6>Total videogames: {totalVideogames}</h6>
       </div>
       <div className={style.right}>
-        <button>Sort</button>
+        <button onClick={() => handlerOrder("A")}>Sort</button>
         <button onClick={handlePortal}>Filter</button>
         <button onClick={() => navigate(`/create`)}>Create</button>
         <button onClick={() => navigate(`/`)}>Landing</button>
