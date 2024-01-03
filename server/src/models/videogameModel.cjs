@@ -21,11 +21,11 @@ module.exports = (sequelize) => {
         type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
       },
-      imageUrl: {
+      background_image: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      releaseDate: {
+      released: {
         type: DataTypes.STRING,
         allowNull: false,
       },

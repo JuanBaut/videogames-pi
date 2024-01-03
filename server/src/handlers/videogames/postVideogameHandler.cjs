@@ -6,8 +6,8 @@ const postVideogameHandler = async (req, res) => {
     name,
     description,
     platforms,
-    imageUrl,
-    releaseDate,
+    background_image,
+    released,
     rating,
     genresIds,
   } = req.body;
@@ -17,8 +17,8 @@ const postVideogameHandler = async (req, res) => {
       name,
       description,
       platforms,
-      imageUrl,
-      releaseDate,
+      background_image,
+      released,
       rating,
       genresIds,
     );

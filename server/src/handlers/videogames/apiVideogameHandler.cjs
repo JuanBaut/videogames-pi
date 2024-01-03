@@ -12,7 +12,7 @@ const apiVideogameHandler = async (req, res) => {
     const filteredGames = rawGames.results.map((game) => ({
       id: game.id,
       name: game.name,
-      imageUrl: game.background_image,
+      background_image: game.background_image,
       genres: game.genres.map((genre) => ({
         id: genre.id,
         name: genre.name,

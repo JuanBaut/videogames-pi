@@ -51,8 +51,8 @@ const createGame = async (
   name,
   description,
   platforms,
-  imageUrl,
-  releaseDate,
+  background_image,
+  released,
   rating,
   genresIds,
 ) => {
@@ -68,8 +68,8 @@ const createGame = async (
     name,
     description,
     platforms,
-    imageUrl,
-    releaseDate,
+    background_image,
+    released,
     rating,
   });
 

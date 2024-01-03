@@ -13,7 +13,7 @@ const mergedVideogameHandler = async (req, res) => {
     const filteredApiGames = apiGames.results.map((game) => ({
       id: game.id,
       name: game.name,
-      imageUrl: game.background_image,
+      background_image: game.background_image,
       genres: game.genres.map((genre) => ({
         id: genre.id,
         name: genre.name,
@@ -21,7 +21,7 @@ const mergedVideogameHandler = async (req, res) => {
       rating: game.rating,
     }));
 
-    databaseGames = await games();
+    const databaseGames = await games();
 
     const mergedGames = [...databaseGames, ...filteredApiGames];
 
