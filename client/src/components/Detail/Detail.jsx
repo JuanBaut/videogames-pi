@@ -21,19 +21,21 @@ export default function Detail() {
         Go back
       </button>
       <div className={style.container}>
-        <img
-          src={detail.background_image}
-          alt="videogame.png"
-          className={style.image}
-        />
         <div>
           <h3>{detail.name}</h3>
-          <h5>ID {detail.id}</h5>
-          <h5>Rating {detail.rating}</h5>
-          <h5>Release Date {detail.released}</h5>
-          <h6>{detail.description_raw}</h6>
+          <h5>
+            ID {detail.id} - Rating {detail.rating} - Release Date{" "}
+            {detail.released}
+          </h5>
+          <img
+            src={detail.background_image}
+            alt="videogame.png"
+            className={style.image}
+          />
         </div>
       </div>
+
+      <p className={style.description}>{detail.description_raw}</p>
     </div>
   );
 }

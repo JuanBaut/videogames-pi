@@ -10,7 +10,7 @@ const mergedVideogameHandler = async (req, res) => {
     const response = await axios.get(gamesUrl, { params: { key: API_KEY } });
     const apiGames = response.data;
 
-    const filteredApiGames = apiGames.results.map((game) => ({
+    const filteredApiGames = await apiGames.results.map((game) => ({
       id: game.id,
       name: game.name,
       background_image: game.background_image,
@@ -23,7 +23,7 @@ const mergedVideogameHandler = async (req, res) => {
 
     const databaseGames = await games();
 
-    const mergedGames = [...databaseGames, ...filteredApiGames];
+    const mergedGames = [...filteredApiGames, ...databaseGames];
 
     const dbCount = databaseGames.length;
     const apiCount = filteredApiGames.length;

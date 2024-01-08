@@ -5,8 +5,17 @@ import Landing from "./components/Landing/Landing";
 import { Route, Routes } from "react-router-dom";
 
 import "./App.css";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getVideogames } from "./redux/actions/getVideogames";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getVideogames());
+  }, [dispatch]);
+
   return (
     <>
       <Routes>

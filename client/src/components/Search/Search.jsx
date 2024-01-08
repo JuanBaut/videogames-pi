@@ -18,7 +18,7 @@ export default function Search() {
 
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  //const [isSorted, setIsSorted] = useState(false);
+  const [isSorted, setIsSorted] = useState(false);
 
   const handleChange = (event) => {
     setQuery(event.target.value);
@@ -52,8 +52,11 @@ export default function Search() {
     dispatch(getGenres());
   };
 
-  const handlerOrder = (order) => {
-    dispatch(orderVideogames(order));
+  const handlerOrder = () => {
+    if (isSorted) {
+      dispatch(orderVideogames("A"));
+      setIsSorted();
+    }
   };
 
   return (
@@ -72,7 +75,7 @@ export default function Search() {
         <h6>Total videogames: {totalVideogames}</h6>
       </div>
       <div className={style.right}>
-        <button onClick={() => handlerOrder("B")}>Sort</button>
+        <button onClick={() => handlerOrder()}>Sort by rating</button>
         <button onClick={handlePortal}>Filter</button>
         <button onClick={() => navigate(`/create`)}>Create</button>
         <button onClick={() => navigate(`/`)}>Landing</button>
